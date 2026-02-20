@@ -5,7 +5,26 @@
            http://www.springframework.org/schema/beans
            http://www.springframework.org/schema/beans/spring-beans-4.0.xsd">
 
-    <!-- Root context - współdzielony między serwletami -->
-    <!-- Tutaj możesz dodać beany dostępne globalnie dla całej aplikacji -->
+    <!--
+    Główna konfiguracja kontekstu Springa, która zawiera definicje beanów.
+    Plik ten jest wykorzystywany przez Springa do zarządzania zależnościami w aplikacji.
+    Beany są obiektami, które są zarządzane przez Spring Container.
+
+    Aplikacja może mieć wiele plików konfiguracyjnych tego typu (np. dla różnych modułów),
+    ale ten jest używany do ogólnej konfiguracji i beany globalne dostępne w całej aplikacji.
+    -->
+
+    <!--
+    Kontekst korzeniowy - beany, które są dostępne globalnie dla wszystkich serwletów w aplikacji.
+    W tym miejscu możesz zdefiniować komponenty, które będą wspólne dla całej aplikacji,
+    np. połączenia z bazą danych, konfiguracje, usługi, itp.
+    -->
+
+    <!-- Przykładowa definicja beana (komponentu Spring) -->
+    <!--
+    <bean id="exampleBean" class="com.example.MyClass">
+        <property name="propertyName" value="propertyValue"/>
+    </bean>
+    -->
 
 </beans>

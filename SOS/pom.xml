@@ -2,93 +2,113 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+  <!-- Określa wersję modelu POM, który używamy -->
   <modelVersion>4.0.0</modelVersion>
 
+  <!-- Określenie identyfikatora grupy (nazwa organizacji lub projektu) -->
   <groupId>WWSIS</groupId>
+  <!-- Określenie identyfikatora artefaktu (unikalna nazwa dla projektu) -->
   <artifactId>sos</artifactId>
+  <!-- Określenie wersji projektu -->
   <version>1.0-SNAPSHOT</version>
+  <!-- Typ pakietu, tutaj 'war' oznacza, że projekt będzie aplikacją webową -->
   <packaging>war</packaging>
 
   <properties>
+    <!-- Określenie wersji Javy, którą używamy w projekcie -->
     <java.version>1.8</java.version>
+    <!-- Określenie wersji Spring Framework (używane do zarządzania aplikacją i zależnościami) -->
     <spring.version>4.3.8.RELEASE</spring.version>
+    <!-- Określenie wersji Hibernate (framework do mapowania obiektowo-relacyjnego) -->
     <hibernate.version>5.2.10.Final</hibernate.version>
   </properties>
 
   <dependencies>
+    <!-- Zależność do Jakarta Persistence API (interfejsy dla frameworku JPA) -->
     <dependency>
       <groupId>jakarta.persistence</groupId>
       <artifactId>jakarta.persistence-api</artifactId>
       <version>3.1.0</version>
     </dependency>
+
+    <!-- Zależność do Spring Data JPA, używana do integracji z bazą danych przez JPA -->
     <dependency>
       <groupId>org.springframework.data</groupId>
       <artifactId>spring-data-jpa</artifactId>
-      <version>2.7.18</version>  <!-- pasuje do Spring 4/5 -->
+      <version>2.7.18</version>  <!-- Pasuje do wersji Spring 4/5 -->
     </dependency>
+
+    <!-- Zależności do testów jednostkowych JUnit, wersja 5 -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>5.10.2</version>
-      <scope>test</scope>
+      <scope>test</scope> <!-- Określenie, że jest to zależność tylko do testów -->
     </dependency>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
       <version>5.10.2</version>
-      <scope>test</scope>
+      <scope>test</scope> <!-- Określenie, że jest to zależność tylko do testów -->
     </dependency>
-    <!-- Spring -->
+
+    <!-- Zależności do Spring Framework -->
+    <!-- Spring Context: Do zarządzania komponentami i konfiguracją aplikacji -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-context</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- Spring ORM: Używane do integracji z bazą danych za pomocą Hibernate -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-orm</artifactId>
       <version>${spring.version}</version>
     </dependency>
+    <!-- Spring Web MVC: Używane do tworzenia aplikacji webowych zgodnie z wzorcem MVC -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
     </dependency>
 
-    <!-- Hibernate -->
+    <!-- Zależności do Hibernate (framework ORM do mapowania obiektów na bazę danych) -->
+    <!-- Hibernate Core: Główna biblioteka Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-core</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
+    <!-- Hibernate EntityManager: Integracja z JPA w Hibernate -->
     <dependency>
       <groupId>org.hibernate</groupId>
       <artifactId>hibernate-entitymanager</artifactId>
       <version>${hibernate.version}</version>
     </dependency>
 
-    <!-- HSQLDB -->
+    <!-- HSQLDB: Baza danych w pamięci, używana głównie do testów -->
     <dependency>
       <groupId>org.hsqldb</groupId>
       <artifactId>hsqldb</artifactId>
       <version>2.4.1</version>
     </dependency>
 
-    <!-- DBCP -->
+    <!-- DBCP: Pool połączeń do bazy danych -->
     <dependency>
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-dbcp2</artifactId>
       <version>2.1.1</version>
     </dependency>
 
-    <!-- jBCrypt -->
+    <!-- jBCrypt: Biblioteka do haszowania haseł użytkowników -->
     <dependency>
       <groupId>org.mindrot</groupId>
       <artifactId>jbcrypt</artifactId>
       <version>0.4</version>
     </dependency>
 
-    <!-- Commons BeanUtils -->
+    <!-- Commons BeanUtils: Narzędzia do pracy z właściwościami JavaBeans -->
     <dependency>
       <groupId>commons-beanutils</groupId>
       <artifactId>commons-beanutils</artifactId>
@@ -98,15 +118,18 @@
 
   <build>
     <plugins>
+      <!-- Konfiguracja wtyczki Maven Compiler Plugin, aby ustawić wersję Javy dla kompilacji -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>3.8.1</version>
         <configuration>
+          <!-- Ustawienie wersji źródłowego i docelowego kodu Java -->
           <source>${java.version}</source>
           <target>${java.version}</target>
         </configuration>
       </plugin>
     </plugins>
   </build>
+
 </project>

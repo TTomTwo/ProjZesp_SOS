@@ -14,11 +14,18 @@
            http://www.springframework.org/schema/data/jpa
            http://www.springframework.org/schema/data/jpa/spring-jpa.xsd">
 
-    <!-- Skanuj pakiet WWSIS (nie pl.atins.sos!) -->
+    <!--
+    Skanuj pakiet "WWSIS" w poszukiwaniu komponentów (beanów) oznaczonych adnotacjami.
+    "context:component-scan" automatycznie wykrywa klasy i dodaje je do kontenera Springa.
+    Beany muszą być oznaczone adnotacjami @Component, @Service, @Repository itp.
+    -->
     <context:component-scan base-package="WWSIS" />
     <context:annotation-config />
 
-    <!-- DataSource - HSQLDB in-memory -->
+    <!--
+    Konfiguracja źródła danych (DataSource) - w tym przypadku HSQLDB w trybie pamięci.
+    Jest to bazodanowe źródło danych, które będzie używane przez aplikację.
+    -->
     <bean id="dataSource" class="org.apache.commons.dbcp2.BasicDataSource" destroy-method="close">
         <property name="driverClassName" value="org.hsqldb.jdbc.JDBCDriver" />
         <property name="url" value="jdbc:hsqldb:mem:sosdb;DB_CLOSE_DELAY=-1" />
@@ -26,49 +33,72 @@
         <property name="password" value="" />
     </bean>
 
-    <!-- EntityManagerFactory - Hibernate jako dostawca JPA -->
+    <!--
+    Konfiguracja EntityManagerFactory - integracja z JPA (Hibernate) do zarządzania encjami.
+    EntityManagerFactory tworzy EntityManager, który jest odpowiedzialny za operacje na bazie danych.
+    -->
     <bean id="entityManagerFactory"
           class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <!-- Źródło danych do połączenia z bazą danych -->
         <property name="dataSource" ref="dataSource" />
+        <!-- Pakiety, w których znajdują się encje JPA -->
         <property name="packagesToScan" value="WWSIS.entity" />
         <property name="jpaVendorAdapter">
+            <!-- Konfiguracja Hibernate jako dostawcy JPA -->
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="true" />
+                <property name="showSql" value="true" /> <!-- Pokazuje zapytania SQL w logach -->
                 <property name="databasePlatform" value="org.hibernate.dialect.HSQLDialect" />
             </bean>
         </property>
+        <!-- Właściwości Hibernate -->
         <property name="jpaProperties">
             <props>
-                <prop key="hibernate.hbm2ddl.auto">update</prop>
-                <prop key="hibernate.format_sql">true</prop>
+                <prop key="hibernate.hbm2ddl.auto">update</prop> <!-- Automatyczna aktualizacja schematu bazy -->
+                <prop key="hibernate.format_sql">true</prop> <!-- Sformatowanie SQL dla lepszej czytelności -->
             </props>
         </property>
     </bean>
 
-    <!-- TransactionManager - wymagany do @Transactional i repozytoriów JPA -->
+    <!--
+    Konfiguracja TransactionManager - zapewnia obsługę transakcji w JPA.
+    TransactionManager umożliwia zarządzanie transakcjami, a @Transactional jest używane w serwisach i repozytoriach.
+    -->
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory" />
     </bean>
 
-    <!-- Włącz obsługę @Transactional -->
+    <!--
+    Włączenie obsługi adnotacji @Transactional, która automatycznie zarządza transakcjami.
+    Używane w repozytoriach i serwisach.
+    -->
     <tx:annotation-driven transaction-manager="transactionManager" />
 
-    <!-- Repozytoria Spring Data JPA - skanuj pakiet WWSIS.repository -->
+    <!--
+    Konfiguracja repozytoriów Spring Data JPA.
+    Skrypt JPA jest odpowiedzialny za automatyczne generowanie implementacji repozytoriów.
+    Spring Data JPA upraszcza dostęp do danych.
+    -->
     <jpa:repositories base-package="WWSIS.repository"
                       entity-manager-factory-ref="entityManagerFactory"
                       transaction-manager-ref="transactionManager" />
 
-    <!-- Obsługa wyjątków JPA → Spring DataAccessException -->
+    <!--
+    Obsługa wyjątków związanych z JPA, automatycznie tłumaczy wyjątki JPA na wyjątki Springa (DataAccessException).
+    -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+
     <!-- ============================================================ -->
     <!-- BEANY DAO - dodaj do swojego applicationContext.xml         -->
     <!-- przed zamykającym tagiem </beans>                           -->
     <!-- ============================================================ -->
 
+    <!-- Definicje beanów DAO do pracy z danymi w aplikacji -->
+    <!-- Każdy z poniższych beanów odpowiada za dostęp do konkretnej tabeli/bazy danych -->
     <bean id="studentDao" class="WWSIS.dao.impl.StudentDaoImpl" />
     <bean id="przedmiotDao" class="WWSIS.dao.impl.PrzedmiotDaoImpl" />
     <bean id="zapisDao" class="WWSIS.dao.impl.ZapisDaoImpl" />
     <bean id="oplataDao" class="WWSIS.dao.impl.OplataDaoImpl" />
     <bean id="wypozyczenieDao" class="WWSIS.dao.impl.WypozyczenieDaoImpl" />
+
 </beans>
