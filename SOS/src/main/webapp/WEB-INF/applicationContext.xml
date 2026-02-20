@@ -61,5 +61,14 @@
     <!-- Obsługa wyjątków JPA → Spring DataAccessException -->
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
     <bean class="org.springframework.orm.jpa.support.PersistenceAnnotationBeanPostProcessor" />
+    <!-- ============================================================ -->
+    <!-- BEANY DAO - dodaj do swojego applicationContext.xml         -->
+    <!-- przed zamykającym tagiem </beans>                           -->
+    <!-- ============================================================ -->
 
+    <bean id="studentDao" class="WWSIS.dao.impl.StudentDaoImpl" />
+    <bean id="przedmiotDao" class="WWSIS.dao.impl.PrzedmiotDaoImpl" />
+    <bean id="zapisDao" class="WWSIS.dao.impl.ZapisDaoImpl" />
+    <bean id="oplataDao" class="WWSIS.dao.impl.OplataDaoImpl" />
+    <bean id="wypozyczenieDao" class="WWSIS.dao.impl.WypozyczenieDaoImpl" />
 </beans>
