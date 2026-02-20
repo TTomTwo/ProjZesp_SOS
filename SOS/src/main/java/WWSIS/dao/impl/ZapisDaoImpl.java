@@ -10,7 +10,7 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import java.util.List;
 
-@Repository
+@Repository // Adnotacja wskazująca, że jest to klasa repozytorium
 @Transactional // Adnotacja zapewniająca zarządzanie transakcjami – operacje na bazie będą wykonywane w ramach jednej transakcji
 public class ZapisDaoImpl implements ZapisDao {
 
@@ -23,7 +23,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * @param id identyfikator zapisu
      * @return Zapis obiekt zapisu lub null, jeśli zapis o danym ID nie istnieje
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public Zapis pobierzZapis(Integer id) {
         // Znajdujemy zapis po ID w bazie danych
         return entityManager.find(Zapis.class, id);
@@ -34,7 +34,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * @param studentId identyfikator studenta
      * @return Lista zapisów studenta
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public List<Zapis> pobierzZapisyStudenta(Integer studentId) {
         // Tworzymy zapytanie JPQL do pobrania wszystkich zapisów dla danego studenta
         Query query = entityManager.createQuery(
@@ -48,7 +48,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * @param grupaId identyfikator grupy
      * @return Lista zapisów na grupę
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public List<Zapis> pobierzZapisyNaGrupe(Integer grupaId) {
         // Tworzymy zapytanie JPQL do pobrania zapisów na grupę
         Query query = entityManager.createQuery(
@@ -62,7 +62,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * @param studentId identyfikator studenta
      * @return Lista aktywnych zapisów studenta
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public List<Zapis> pobierzAktywneZapisyStudenta(Integer studentId) {
         // Tworzymy zapytanie JPQL do pobrania aktywnych zapisów studenta
         Query query = entityManager.createQuery(
@@ -75,7 +75,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * Zapisuje nowy zapis do bazy danych.
      * @param zapis obiekt zapisu do zapisania
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public void zapiszZapis(Zapis zapis) {
         // Zapisujemy nowy obiekt zapis w bazie danych
         entityManager.persist(zapis);
@@ -85,7 +85,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * Anuluje zapis, zmieniając jego status na "wypisany".
      * @param zapisId identyfikator zapisu, który ma zostać anulowany
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public void anulujZapis(Integer zapisId) {
         // Tworzymy zapytanie JPQL do zmiany statusu zapisu na "wypisany"
         Query query = entityManager.createQuery(
@@ -98,7 +98,7 @@ public class ZapisDaoImpl implements ZapisDao {
      * Usuwa zapis na grupę z bazy danych.
      * @param zapisId identyfikator zapisu, który ma zostać usunięty
      */
-    @Override
+    @Override // Adnotacja @Override wskazuje, że ta metoda nadpisuje metodę z interfejsu ZapisDao
     public void usunZapis(Integer zapisId) {
         // Znajdujemy zapis po ID
         Zapis z = entityManager.find(Zapis.class, zapisId);
