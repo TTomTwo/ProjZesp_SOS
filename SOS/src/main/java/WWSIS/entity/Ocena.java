@@ -1,6 +1,6 @@
 package WWSIS.entity;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity

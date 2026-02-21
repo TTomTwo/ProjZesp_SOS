@@ -26,11 +26,7 @@
 
   <dependencies>
     <!-- Zależność do Jakarta Persistence API (interfejsy dla frameworku JPA) -->
-    <dependency>
-      <groupId>jakarta.persistence</groupId>
-      <artifactId>jakarta.persistence-api</artifactId>
-      <version>3.1.0</version>
-    </dependency>
+
 
     <!-- Zależność do Spring Data JPA, używana do integracji z bazą danych przez JPA -->
     <dependency>
